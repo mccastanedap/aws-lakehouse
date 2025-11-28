@@ -1,0 +1,9 @@
+aws_profile: default       # or the profile name you actually use
+region: us-east-1
+
+s3:
+  bucket: your-demo-bucket-name
+  base_prefix: aws-lakehouse/
+  bronze_prefix: bronze/
+  silver_prefix: silver/
+  gold_prefix: gold/
