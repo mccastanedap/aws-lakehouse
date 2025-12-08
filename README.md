@@ -63,7 +63,7 @@ SELECT
   total_revenue
 FROM aws_lakehouse_db.gold_orders
 ORDER BY order_date, country, product;
-
+```
 ---
 
 ## Project Structure
