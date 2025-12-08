@@ -37,6 +37,32 @@ The goal is to practice **data engineering & architecture skills**:
 
 > All lakehouse data lives in the S3 bucket  
 > `s3://melissa-lakehouse-demo` under the prefix `aws-lakehouse/`.
+---
+
+## Query Layer – Amazon Athena
+
+Cleaned (silver) and aggregated (gold) data are exposed through Amazon Athena using the AWS Glue Data Catalog:
+
+- `aws_lakehouse_db.silver_orders`
+- `aws_lakehouse_db.gold_orders`
+
+Example queries:
+
+```sql
+-- Inspect cleaned orders
+SELECT *
+FROM aws_lakehouse_db.silver_orders
+LIMIT 10;
+
+-- Revenue by country and product from the gold layer
+SELECT
+  order_date,
+  country,
+  product,
+  total_quantity,
+  total_revenue
+FROM aws_lakehouse_db.gold_orders
+ORDER BY order_date, country, product;
 
 ---
 
