@@ -68,28 +68,26 @@ ORDER BY order_date, country, product;
 
 ## Project Structure
 
-```text
 src/
   ingestion/
-    lambda_ingest_orders.py    # Lambda function: generate sample orders → bronze
+    lambda_ingest_orders.py
   transformation/
-    bronze_to_silver_orders.py # Glue job script: CSV → cleaned Parquet (silver)
+    bronze_to_silver_orders.py
   analytics/
-    silver_to_gold_orders.py   # Glue job script: aggregates → gold layer
+    silver_to_gold_orders.py
   utils/
-    __init__.py                # Shared helpers (optional: logging, config, etc.)
 
 glue/
   jobs/
-    bronze_to_silver_orders.py # (same as above, stored for version control)
-    silver_to_gold_orders.py   # (same as above)
+    bronze_to_silver_orders.py
+    silver_to_gold_orders.py
 
 configs/
-  dev.yaml                     # Example config for dev environment
+  dev.yaml
 
 notebooks/
-  exploration.ipynb            # Optional data exploration / Athena queries
+  exploration.ipynb
 
 docs/
-  architecture.md              # Architecture notes, diagrams, decisions
-
+  architecture.png
+  architecture.md
