@@ -68,6 +68,7 @@ ORDER BY order_date, country, product;
 
 ## Project Structure
 
+```text
 src/
   ingestion/
     lambda_ingest_orders.py
