@@ -72,24 +72,24 @@ ORDER BY order_date, country, product;
 ---
 ## Setup Instructions
 1. S3 Bucket
-- Create an S3 bucket (e.g. my-lakehouse-demo).
-- Add folders: bronze/, silver/, gold/.
+   - Create an S3 bucket (e.g. my-lakehouse-demo).
+   - Add folders: bronze/, silver/, gold/.
 2. Lambda Function
-- Create a Lambda function in AWS Console.
-- Upload src/ingestion/lambda_ingest_orders.py.
-- Configure trigger (manual or scheduled) to write CSVs into the Bronze path.
+   - Create a Lambda function in AWS Console.
+   - Upload src/ingestion/lambda_ingest_orders.py.
+   - Configure trigger (manual or scheduled) to write CSVs into the Bronze path.
 3. Glue Jobs
-- Go to AWS Glue Console → Jobs → Create Job.
-- Upload scripts from glue/jobs/:
-- bronze_to_silver_orders.py
-- silver_to_gold_orders.py
-- Configure IAM role with S3 + Glue + Athena permissions.
-- Register outputs in Glue Data Catalog:
-- silver_orders
-- gold_orders
+   - Go to AWS Glue Console → Jobs → Create Job.
+   - Upload scripts from glue/jobs/:
+   - bronze_to_silver_orders.py
+   - silver_to_gold_orders.py
+   - Configure IAM role with S3 + Glue + Athena permissions.
+   - Register outputs in Glue Data Catalog:
+   - silver_orders
+   - gold_orders
 4. Athena Queries
-- Ensure Glue Data Catalog tables exist.
-- Run queries from docs/queries.sql or README examples.
+   - Ensure Glue Data Catalog tables exist.
+   - Run queries from docs/queries.sql or README examples.
 
 ---
 ---
