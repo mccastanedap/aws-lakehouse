@@ -1,14 +1,18 @@
 # AWS Lakehouse – Demo Project
 
-This repository contains a small end-to-end **lakehouse-style** data pipeline on AWS.
+This repository contains a small end‑to‑end lakehouse‑style data pipeline on AWS.
+The goal is to practice data engineering & architecture skills using AWS services while keeping costs minimal.
 
-The goal is to practice **data engineering & architecture skills**:
+Note on Costs:
+To avoid unnecessary AWS charges, Glue jobs and Lambda functions are not pre‑deployed.
+You can recreate them easily by following the setup instructions below.
 
-- Raw data landing in S3 (**bronze**).
-- Cleaned & modeled data written back to S3 (**silver**) and aggregated (**gold**).
-- Reusable configuration and clear project structure.
-- Infrastructure and code that follow good practices (Lambda + Glue + Athena).
-
+---
+## Project Goals
+- Ingest raw e‑commerce orders into an S3 Bronze layer.
+- Transform and validate data into Silver and Gold layers using AWS Glue (PySpark).
+- Query curated datasets with Amazon Athena for analytics and dashboards.
+- Showcase modular ETL code, schema enforcement, data quality checks, and orchestration triggers.
 ---
 
 ## Architecture (High Level)
