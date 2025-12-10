@@ -1,14 +1,18 @@
 # AWS Lakehouse – Demo Project
 
-This repository contains a small end-to-end **lakehouse-style** data pipeline on AWS.
+This repository contains a small end‑to‑end lakehouse‑style data pipeline on AWS.
+The goal is to practice data engineering & architecture skills using AWS services while keeping costs minimal.
 
-The goal is to practice **data engineering & architecture skills**:
+Note on Costs:
+To avoid unnecessary AWS charges, Glue jobs and Lambda functions are not pre‑deployed.
+You can recreate them easily by following the setup instructions below.
 
-- Raw data landing in S3 (**bronze**).
-- Cleaned & modeled data written back to S3 (**silver**) and aggregated (**gold**).
-- Reusable configuration and clear project structure.
-- Infrastructure and code that follow good practices (Lambda + Glue + Athena).
-
+---
+## Project Goals
+- Ingest raw e‑commerce orders into an S3 Bronze layer.
+- Transform and validate data into Silver and Gold layers using AWS Glue (PySpark).
+- Query curated datasets with Amazon Athena for analytics and dashboards.
+- Showcase modular ETL code, schema enforcement, data quality checks, and orchestration triggers.
 ---
 
 ## Architecture (High Level)
@@ -64,6 +68,30 @@ SELECT
 FROM aws_lakehouse_db.gold_orders
 ORDER BY order_date, country, product;
 ```
+
+---
+## Setup Instructions
+1. S3 Bucket
+   - Create an S3 bucket (e.g. my-lakehouse-demo).
+   - Add folders: bronze/, silver/, gold/.
+2. Lambda Function
+   - Create a Lambda function in AWS Console.
+   - Upload src/ingestion/lambda_ingest_orders.py.
+   - Configure trigger (manual or scheduled) to write CSVs into the Bronze path.
+3. Glue Jobs
+   - Go to AWS Glue Console → Jobs → Create Job.
+   - Upload scripts from glue/jobs/:
+   - bronze_to_silver_orders.py
+   - silver_to_gold_orders.py
+   - Configure IAM role with S3 + Glue + Athena permissions.
+   - Register outputs in Glue Data Catalog:
+   - silver_orders
+   - gold_orders
+4. Athena Queries
+   - Ensure Glue Data Catalog tables exist.
+   - Run queries from docs/queries.sql or README examples.
+
+---
 ---
 
 ## Project Structure
