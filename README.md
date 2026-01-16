@@ -1,6 +1,6 @@
 # AWS Lakehouse – Demo Project
 
-This repository contains a small end‑to‑end lakehouse‑style data pipeline on AWS.
+This repository contains a small end to end lakehouse style data pipeline on AWS.
 The goal is to practice data engineering & architecture skills using AWS services while keeping costs minimal.
 
 Note on Costs:
