@@ -53,12 +53,12 @@ Cleaned (silver) and aggregated (gold) data are exposed through Amazon Athena us
 Example queries:
 
 ```sql
--- Inspect cleaned orders
+- Inspect cleaned orders
 SELECT *
 FROM aws_lakehouse_db.silver_orders
 LIMIT 10;
 
--- Revenue by country and product from the gold layer
+- Revenue by country and product from the gold layer
 SELECT
   order_date,
   country,
