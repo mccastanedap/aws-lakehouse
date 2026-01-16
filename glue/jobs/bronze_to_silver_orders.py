@@ -11,10 +11,10 @@ from pyspark.sql.types import (
     StringType, IntegerType, DoubleType, DateType
 )
 
-# -------------------------------------------------------------------
+
 # 1) Job arguments & logging
 #    - Make paths and catalog objects configurable
-# -------------------------------------------------------------------
+
 args = getResolvedOptions(
     sys.argv,
     [
@@ -33,9 +33,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 logger.info("Starting bronze_to_silver job")
 
-# -------------------------------------------------------------------
+
 # 2) Glue / Spark bootstrap
-# -------------------------------------------------------------------
+
 sc = SparkContext()
 glueContext = GlueContext(sc)
 spark = glueContext.spark_session
@@ -48,21 +48,21 @@ BRONZE_TABLE = args["BRONZE_TABLE"]
 SILVER_PATH = args["SILVER_PATH"]
 PARTITION_COLUMN = args["PARTITION_COLUMN"]
 
-# -------------------------------------------------------------------
+
 # 3) Explicit source schema (resilient to drift)
-#    - Read as strings first, then cast deterministically
-# -------------------------------------------------------------------
+#     Read as strings first, then cast deterministically
+
 source_schema = StructType([
     StructField("order_id", StringType(), True),
-    StructField("order_date", StringType(), True),  # cast to DateType later
+    StructField("order_date", StringType(), True),  
     StructField("customer_id", StringType(), True),
     StructField("country", StringType(), True),
     StructField("product", StringType(), True),
-    StructField("quantity", StringType(), True),    # cast to IntegerType later
-    StructField("unit_price", StringType(), True),  # cast to DoubleType later
+    StructField("quantity", StringType(), True),    
+    StructField("unit_price", StringType(), True),  
 ])
 
-# Read via Glue Catalog (DynamicFrame) for AWS-native integration
+# Read via Glue Catalog for AWS-native integration
 bronze_dyf = glueContext.create_dynamic_frame.from_catalog(
     database=BRONZE_DB,
     table_name=BRONZE_TABLE
@@ -83,9 +83,9 @@ bronze_df = align_to_schema(bronze_df, source_schema)
 raw_count = bronze_df.count()
 logger.info(f"Bronze rows (raw): {raw_count}")
 
-# -------------------------------------------------------------------
+
 # 4) Type casting, derived columns, and basic DQ
-# -------------------------------------------------------------------
+
 clean_df = (
     bronze_df
     # Casts
@@ -118,9 +118,9 @@ if clean_count == 0:
     job.commit()
     sys.exit(0)
 
-# -------------------------------------------------------------------
+
 # 5) Write to Silver: Parquet + partitioning + compression
-# -------------------------------------------------------------------
+
 # If partition column doesn’t exist or is null-heavy, fall back to non-partitioned write
 partition_cols = []
 if PARTITION_COLUMN and PARTITION_COLUMN in clean_df.columns:
